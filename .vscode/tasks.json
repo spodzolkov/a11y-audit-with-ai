@@ -1,0 +1,75 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "A11y: Run Tests (tools)",
+      "type": "shell",
+      "command": "npm test",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "A11y: Install Tools Dependencies",
+      "type": "shell",
+      "command": "npm install --prefix tools",
+      "problemMatcher": []
+    },
+    {
+      "label": "A11y: Show Pipeline State",
+      "type": "shell",
+      "command": "node tools/pipeline-state.mjs show",
+      "problemMatcher": []
+    },
+    {
+      "label": "A11y: Validate Pipeline State",
+      "type": "shell",
+      "command": "node tools/pipeline-state.mjs validate",
+      "problemMatcher": []
+    },
+    {
+      "label": "A11y: Verify Current Run",
+      "type": "shell",
+      "command": "node tools/verify-run.mjs",
+      "problemMatcher": []
+    },
+    {
+      "label": "A11y: Archive Current Run (Dry Run)",
+      "type": "shell",
+      "command": "node tools/pipeline-state.mjs archive --dry-run",
+      "problemMatcher": []
+    },
+    {
+      "label": "A11y: Manual Browser Login (Save Session)",
+      "type": "shell",
+      "command": "node tools/auth-login.mjs --role ${input:authRole} --url \"${input:targetUrl}\"",
+      "problemMatcher": []
+    },
+    {
+      "label": "A11y: Check Auth Session",
+      "type": "shell",
+      "command": "node tools/auth-check.mjs --role ${input:authRole} --url \"${input:targetUrl}\"",
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "authRole",
+      "type": "promptString",
+      "description": "Назва ролі для файлу auth/playwright/.auth/<роль>.json",
+      "default": "director"
+    },
+    {
+      "id": "targetUrl",
+      "type": "promptString",
+      "description": "URL цілі аудиту"
+    }
+  ]
+}
+

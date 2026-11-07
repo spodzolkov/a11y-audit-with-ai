@@ -1,0 +1,60 @@
+# Увага: git не підтримує коментарі в кінці рядка з шаблоном.
+# Коментар завжди пишеться окремим рядком, інакше шаблон перестає діяти.
+
+# Локальні MCP-налаштування воркспейсу VS Code (машинозалежні шляхи, роль storageState).
+# Шаблон для копіювання: docs/mcp.example.json
+.vscode/mcp.json
+
+# Поточний запуск пайплайну (стан, журнал, звіти, сирі результати сканерів)
+output/
+
+# Архів виконань пайплайну (генерується етапом 11)
+result_history/
+
+# Інструменти пайплайну: залежності встановлюються npm install --prefix tools
+tools/node_modules/
+tools/package-lock.json
+
+# Механізм авторизації (auth/): версіонується лише AUTH-SETUP.md.
+# Збережені стани сесій (storageState) - секрет (куки/сесії):
+auth/**/*.json
+auth/playwright/
+
+# Артефакти Playwright MCP поза output/ (старі запуски без --output-dir)
+.playwright-mcp/
+.playwright-cli/
+
+# Звіти й трейси Playwright/Lighthouse у будь-якій теці (проміжні результати прогонів)
+**/test-results/
+**/playwright-report/
+**/blob-report/
+*.trace.zip
+trace.zip
+*.har
+
+# Знімки сторінок і логи консолі в корені (можуть містити персональні дані)
+/*.png
+/*.jpg
+/*.jpeg
+/*.webp
+/page-*.yml
+/console-*.log
+/*.report.html
+/*.report.json
+/lighthouse-*.json
+/lighthouse-*.html
+/scan-*.json
+
+# Тимчасові раннери й налагоджувальні скрипти в корені (інструменти живуть у tools/)
+/*.cjs
+/*.mjs
+/tmp/
+/temp/
+
+# Логи npm
+npm-debug.log*
+.npm/
+
+# Системні
+.DS_Store
+Thumbs.db

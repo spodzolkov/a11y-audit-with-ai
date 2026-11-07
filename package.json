@@ -1,0 +1,25 @@
+{
+  "name": "a11y-audit-pipeline",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Пайплайн комплексної перевірки доступності (WCAG 2.2 AA). Тільки перевірка та звітування (read-only).",
+  "engines": {
+    "node": ">=22.19"
+  },
+  "scripts": {
+    "setup:tools": "npm install --prefix tools",
+    "test": "node --test \"tools/tests/*.test.mjs\"",
+    "state": "node tools/pipeline-state.mjs",
+    "state:show": "node tools/pipeline-state.mjs show",
+    "state:validate": "node tools/pipeline-state.mjs validate",
+    "state:archive": "node tools/pipeline-state.mjs archive",
+    "auth:login": "node tools/auth-login.mjs",
+    "auth:check": "node tools/auth-check.mjs",
+    "crawl": "node tools/popup-crawler.mjs",
+    "axe": "node tools/axe-run.mjs",
+    "lh": "node tools/lh-run.mjs",
+    "verify": "node tools/verify-run.mjs"
+  }
+}
+

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>Фікстур модуля orders</title>
+<style>
+  [hidden] { display: none !important; }
+  .dialog { border: 1px solid #333; padding: 8px; margin: 8px 0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Обмін валют</h1>
+  <!-- Навмисне порушення для axe: зображення без alt. -->
+  <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width="10" height="10">
+
+  <button id="filter" aria-haspopup="dialog" aria-expanded="false" aria-controls="filter-dlg">Фільтр</button>
+  <button id="delete">Видалити</button>
+  <button id="create">Створити договір</button>
+  <a href="#/menu/1/module/277/main-page/payments">Платежі</a>
+
+  <div role="tablist" aria-label="Статус">
+    <button role="tab" id="tab-a" aria-selected="true" aria-controls="panel-a">Активні</button>
+    <button role="tab" id="tab-b" aria-selected="false" aria-controls="panel-b">Архів</button>
+  </div>
+  <div id="panel-a" role="tabpanel" aria-labelledby="tab-a">Активних заявок: 3</div>
+  <div id="panel-b" role="tabpanel" aria-labelledby="tab-b" hidden>Архівних заявок: 7</div>
+
+  <div id="filter-dlg" class="dialog" role="dialog" aria-label="Параметри фільтра" hidden>
+    <button id="currency" aria-haspopup="listbox" aria-expanded="false" aria-controls="currency-list">Валюта</button>
+    <ul id="currency-list" role="listbox" aria-label="Список валют" hidden>
+      <li role="option" aria-selected="false">USD</li>
+      <li role="option" aria-selected="false">EUR</li>
+    </ul>
+    <button id="close">Закрити</button>
+  </div>
+</main>
+<script>
+  const ping = (name) => fetch('/clicked?name=' + encodeURIComponent(name)).catch(() => {});
+  const filter = document.getElementById('filter');
+  const dlg = document.getElementById('filter-dlg');
+  const currency = document.getElementById('currency');
+  const list = document.getElementById('currency-list');
+
+  function closeDialog() {
+    dlg.hidden = true;
+    filter.setAttribute('aria-expanded', 'false');
+    list.hidden = true;
+    currency.setAttribute('aria-expanded', 'false');
+    filter.focus();
+  }
+  filter.addEventListener('click', () => {
+    ping('Фільтр');
+    dlg.hidden = false;
+    filter.setAttribute('aria-expanded', 'true');
+    currency.focus();
+  });
+  currency.addEventListener('click', () => {
+    ping('Валюта');
+    const open = list.hidden;
+    list.hidden = !open;
+    currency.setAttribute('aria-expanded', String(open));
+  });
+  document.getElementById('close').addEventListener('click', closeDialog);
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (!list.hidden) {
+      list.hidden = true;
+      currency.setAttribute('aria-expanded', 'false');
+      currency.focus();
+    } else if (!dlg.hidden) {
+      closeDialog();
+    }
+  });
+  document.getElementById('delete').addEventListener('click', () => ping('Видалити'));
+  document.getElementById('create').addEventListener('click', () => {
+    ping('Створити договір');
+    location.hash = '#/menu/1/module/276/main-page/orders/create';
+  });
+  for (const [t, p, other, otherP] of [['tab-a', 'panel-a', 'tab-b', 'panel-b'], ['tab-b', 'panel-b', 'tab-a', 'panel-a']]) {
+    document.getElementById(t).addEventListener('click', () => {
+      ping(document.getElementById(t).textContent);
+      document.getElementById(t).setAttribute('aria-selected', 'true');
+      document.getElementById(other).setAttribute('aria-selected', 'false');
+      document.getElementById(p).hidden = false;
+      document.getElementById(otherP).hidden = true;
+    });
+  }
+</script>
+</body>
+</html>

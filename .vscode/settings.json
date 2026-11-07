@@ -1,0 +1,19 @@
+{
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/output/runtime/**": true,
+    "**/result_history/**": true,
+    "**/auth/playwright/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/result_history": true,
+    "**/auth/playwright": true
+  },
+  "github.copilot.chat.codeGeneration.useInstructionFiles": true
+}
+

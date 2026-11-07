@@ -1,0 +1,39 @@
+{
+  "servers": {
+    "playwright-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp",
+        "--isolated",
+        "--output-dir",
+        "output/runtime/mcp"
+      ]
+    },
+    "gitlab": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-gitlab"
+      ],
+      "env": {
+        "GITLAB_PERSONAL_ACCESS_TOKEN": "<GITLAB_TOKEN>",
+        "GITLAB_API_URL": "https://gitlab.com/api/v4"
+      }
+    },
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<GITHUB_TOKEN>"
+      }
+    }
+  }
+}
+
